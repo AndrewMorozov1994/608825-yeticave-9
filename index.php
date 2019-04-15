@@ -46,13 +46,15 @@ $adverts = [
 
 function format_price($input) {
     $output = ceil($input) ;
-    $rub = '<b class="rub">р</b>' ;
+    $result ;
 
     if ($output < 1000) {
-        return $output . $rub ;
+        $result = $output . '  &#8381' ;
     }
 
-    return number_format($output, 0, '', ' ') . $rub ;
+    $result = number_format($output, 0, '', ' ') . '  &#8381' ;
+
+    return $result ;
 }
 ?>
 
