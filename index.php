@@ -50,9 +50,9 @@ function format_price($input) {
 
     if ($output < 1000) {
         $result = $output . '  &#8381' ;
+    } else {
+        $result = number_format($output, 0, '', ' ') . '  &#8381' ;
     }
-
-    $result = number_format($output, 0, '', ' ') . '  &#8381' ;
 
     return $result ;
 }
