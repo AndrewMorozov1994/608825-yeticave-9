@@ -10,38 +10,38 @@ $adverts = [
         'title' => '2014 Rossignol District Snowboard',
         'category' => 'Доски и лыжи',
         'price' => 10999,
-        'url' => 'img/lot-1.jpg'
+        'url' => 'img/lot-1.jpg',
     ],
     [
         'title' => 'DC Ply Mens 2016/2017 Snowboard',
         'category' => 'Доски и лыжи',
         'price' => 159999,
-        'url' => 'img/lot-2.jpg'
+        'url' => 'img/lot-2.jpg',
     ],
     [
         'title' => 'Крепления Union Contact Pro 2015 года размер L/XL',
         'category' => 'Крепления',
         'price' => 8000,
-        'url' => 'img/lot-3.jpg'
+        'url' => 'img/lot-3.jpg',
     ],
     [
         'title' => 'Ботинки для сноуборда DC Mutiny Charocal',
         'category' => 'Ботинки',
         'price' => 10999,
-        'url' => 'img/lot-4.jpg'
+        'url' => 'img/lot-4.jpg',
     ],
     [
         'title' => 'Куртка для сноуборда DC Mutiny Charocal',
         'category' => 'Одежда',
         'price' => 7500,
-        'url' => 'img/lot-5.jpg'
+        'url' => 'img/lot-5.jpg',
     ],
     [
         'title' => 'Маска Oakley Canopy',
         'category' => 'Разное',
         'price' => 5400,
-        'url' => 'img/lot-6.jpg'
-    ]
+        'url' => 'img/lot-6.jpg',
+    ],
 ]
 ?>
 <!DOCTYPE html>
@@ -100,7 +100,7 @@ $adverts = [
         <ul class="promo__list">
             <!--заполните этот список из массива категорий-->
 
-            <? foreach ($categories as $key => $value): ?>
+            <? foreach ($categories as $value): ?>
                 <li class="promo__item promo__item--boards">
                     <a class="promo__link" href="pages/all-lots.html"><?=$value; ?></a>
                 </li>
@@ -115,7 +115,7 @@ $adverts = [
         <ul class="lots__list">
             <!--заполните этот список из массива с товарами-->
 
-            <? foreach ($adverts as $key => $value): ?>
+            <? foreach ($adverts as $value): ?>
                 <li class="lots__item lot">
                     <div class="lot__image">
                         <img src=<?=$value['url']; ?> width="350" height="260" alt="">
@@ -146,7 +146,7 @@ $adverts = [
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
 
-            <? foreach ($categories as $key => $value): ?>
+            <? foreach ($categories as $value): ?>
                 <li class="nav__item">
                     <a href="pages/all-lots.html"><?=$value; ?></a>
                 </li>
