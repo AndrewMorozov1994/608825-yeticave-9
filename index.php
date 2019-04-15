@@ -39,11 +39,23 @@ $adverts = [
     [
         'title' => 'Маска Oakley Canopy',
         'category' => 'Разное',
-        'price' => 5400,
+        'price' => 349.1,
         'url' => 'img/lot-6.jpg',
     ],
-]
+];
+
+function format_price($input) {
+    $output = ceil($input) ;
+    $rub = '<b class="rub">р</b>' ;
+
+    if ($output < 1000) {
+        return $output . $rub ;
+    }
+
+    return number_format($output, 0, '', ' ') . $rub ;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -126,7 +138,7 @@ $adverts = [
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?=$value['price']; ?><b class="rub">р</b></span>
+                                <span class="lot__cost"><?=format_price($value['price']); ?></span>
                             </div>
                             <div class="lot__timer timer">
                                 12:23
