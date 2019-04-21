@@ -66,7 +66,7 @@ function end_time($end_date) {
     $hours = floor($delta / 3600);
     $minutes = floor(($delta - $hours * 3600) / 60);
 
-    return sprintf('%02d:%02d', $hours, $minutes);
+    return "{$hours} : {$minutes}";
 }
 
 function end_sale_time($end_date) {
