@@ -60,6 +60,19 @@ function format_price($input) {
     return $result ;
 };
 
+function end_time($end_date) {
+    $delta = strtotime($end_date) - strtotime('now');
+
+    $hours = floor($delta / 3600);
+    $minutes = floor(($delta - $hours * 3600) / 60);
+
+    return "{$hours} : {$minutes}";
+}
+
+function end_sale_time($end_date) {
+    return $minutes = (strtotime($end_date) - strtotime('now')) / 60;
+}
+
 $content = include_template('index.php', [
     'categories' => $categories,
     'adverts' => $adverts,
