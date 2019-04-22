@@ -4,26 +4,26 @@ USE yeticave;
 
 CREATE TABLE category (
 	id          INT AUTO_INCREMENT PRIMARY KEY,
-	name        CHAR NOT NULL,
-	symbol_code CHAR NOT NULL
+	name        VARCHAR(64) NOT NULL,
+	symbol_code VARCHAR(64) NOT NULL
 );
 
 CREATE TABLE users (
 	id       INT AUTO_INCREMENT PRIMARY KEY,
 	date_reg TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	email    CHAR UNIQUE NOT NULL,
-	name     CHAR UNIQUE NOT NULL,
-	password CHAR NOT NULL,
-	avatar   CHAR,
-	contacts CHAR NOT NULL
+	email    VARCHAR(64) UNIQUE NOT NULL,
+	name     VARCHAR(64) UNIQUE NOT NULL,
+	password VARCHAR(64) NOT NULL,
+	avatar   VARCHAR(255),
+	contacts TEXT NOT NULL
 );
 
 CREATE TABLE lot (
 	id            INT AUTO_INCREMENT PRIMARY KEY,
 	date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	name          CHAR NOT NULL,
-	description   CHAR NOT NULL,
-	img_url       CHAR NOT NULL,
+	name          VARCHAR(64) NOT NULL,
+	description   TEXT NOT NULL,
+	img_url       VARCHAR(255) NOT NULL,
 	start_price   INT NOT NULL,
 	end_date      TIMESTAMP NOT NULL,
 	step          INT NOT NULL,
