@@ -37,7 +37,7 @@ CREATE TABLE lot (
 
 CREATE TABLE bet (
 	id            INT AUTO_INCREMENT PRIMARY KEY,
-	date_creation TIMESTAMP NOT NULL,
+	date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	price         INT NOT NULL,
 	user          INT,
 	lot           INT,
