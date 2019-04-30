@@ -6,47 +6,6 @@ $is_auth = rand(0, 1);
 
 $user_name = 'Андрей'; // укажите здесь ваше имя
 
-$categories = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
-
-$adverts = [
-    [
-        'title' => '2014 Rossignol District Snowboard',
-        'category' => 'Доски и лыжи',
-        'price' => 10999,
-        'url' => 'img/lot-1.jpg',
-    ],
-    [
-        'title' => 'DC Ply Mens 2016/2017 Snowboard',
-        'category' => 'Доски и лыжи',
-        'price' => 159999,
-        'url' => 'img/lot-2.jpg',
-    ],
-    [
-        'title' => 'Крепления Union Contact Pro 2015 года размер L/XL',
-        'category' => 'Крепления',
-        'price' => 8000,
-        'url' => 'img/lot-3.jpg',
-    ],
-    [
-        'title' => 'Ботинки для сноуборда DC Mutiny Charocal',
-        'category' => 'Ботинки',
-        'price' => 10999,
-        'url' => 'img/lot-4.jpg',
-    ],
-    [
-        'title' => 'Куртка для сноуборда DC Mutiny Charocal',
-        'category' => 'Одежда',
-        'price' => 7500,
-        'url' => 'img/lot-5.jpg',
-    ],
-    [
-        'title' => 'Маска Oakley Canopy',
-        'category' => 'Разное',
-        'price' => 349.1,
-        'url' => 'img/lot-6.jpg',
-    ],
-];
-
 function format_price($input) {
     $output = ceil($input) ;
     $result ;
@@ -67,15 +26,47 @@ function end_time($end_date) {
     $minutes = floor(($delta - $hours * 3600) / 60);
 
     return "{$hours} : {$minutes}";
-}
+};
 
 function end_sale_time($end_date) {
     return $minutes = (strtotime($end_date) - strtotime('now')) / 60;
-}
+};
+
+function db_fetch_data($link, $sql, $data = []) {
+    $result = [];
+    $stmt = db_get_prepare_stmt($link, $sql, $data);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    if ($res) {
+    $result = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    }
+    return $result;
+};
+
+$link = mysqli_connect("localhost", "root", "", "yeticave");
+
+mysqli_set_charset($link, "utf8");
+
+if ($link == false) {
+    print("Ошибка подключения: " . mysqli_connect_error());
+} else {
+    // Link up;
+    $sql = "SELECT * FROM category";
+    $categories = db_fetch_data($link, $sql);
+
+    $sql = "SELECT l.name, l.start_price, l.description, l.img_url, c.name AS category_name
+            FROM lot AS l
+            INNER JOIN category AS c ON l.category = c.id
+            WHERE l.end_date > NOW()
+            ORDER BY l.date_creation DESC
+            LIMIT 5";
+    $lots = db_fetch_data($link, $sql);
+};
+
 
 $content = include_template('index.php', [
     'categories' => $categories,
-    'adverts' => $adverts,
+    'lots' => $lots,
 ]);
 
 $layout_content = include_template('layout.php', [
