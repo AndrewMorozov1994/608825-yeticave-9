@@ -54,15 +54,16 @@ if ($link == false) {
     $sql = "SELECT * FROM category";
     $categories = db_fetch_data($link, $sql);
 
-    $sql = "SELECT l.name, l.start_price, l.description, l.img_url, c.name AS category_name
+    $sql = "SELECT l.name, l.id, l.start_price, l.lot_category, l.img_url, c.name AS category_name
             FROM lot AS l
             INNER JOIN category AS c ON l.category = c.id
             WHERE l.end_date > NOW()
-            ORDER BY l.date_creation DESC
-            LIMIT 5";
+            ORDER BY l.date_creation DESC";
+            
     $lots = db_fetch_data($link, $sql);
 };
 
+$main_class = "container";
 
 $content = include_template('index.php', [
     'categories' => $categories,
@@ -75,6 +76,7 @@ $layout_content = include_template('layout.php', [
     'user_name' => $user_name,
     'page_content' => $content,
     'categories' => $categories,
+    'main_class' => $main_class,
 ]);
 
 print($layout_content);
