@@ -47,7 +47,11 @@
     </div>
 </header>
 
-<?=$page_content; ?>
+<main class="<?=$main_class ? $main_class : ""; ?>">
+
+    <?=$page_content; ?>
+
+</main>
 
 </div>
 

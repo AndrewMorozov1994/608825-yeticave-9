@@ -23,6 +23,7 @@ CREATE TABLE lot (
 	date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	name          VARCHAR(64) NOT NULL,
 	description   TEXT NOT NULL,
+  lot_category  VARCHAR(64),
 	img_url       VARCHAR(255) NOT NULL,
 	start_price   INT NOT NULL,
 	end_date      TIMESTAMP NOT NULL,
