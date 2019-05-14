@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $errors = lot_validity($lot);
 
-    if (!empty($_FILES["lot-img"]["name"])) {
+    if (isset($_FILES["lot-img"]) && !empty($_FILES["lot-img"]["name"]) && !$errors) {
 
         $tmp_name = $_FILES["lot-img"]["tmp_name"];
         $path = $_FILES["lot-img"]["name"];
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
            $errors["lot-img"] = 'Вы не загрузили файл';
     };
 
-    if (count($errors)) {
+    if (sizeof($errors)) {
         $content = include_template('add.php', [
             'categories' => $categories,
             'errors' => $errors,
