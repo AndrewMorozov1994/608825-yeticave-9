@@ -55,14 +55,7 @@ if ($lot) {
     ]);
 };
 
-$layout = include_template('layout.php', [
-    'page_content' => $content,
-    'page_title' => $title,
-    'is_auth' => $is_auth,
-    'user_name' => $user_name,
-    'categories' => $categories,
-]);
-
+$layout = get_layout($content, $title, $is_auth, $user_name, $categories);
 print($layout);
 
 ?>

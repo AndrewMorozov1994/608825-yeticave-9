@@ -87,4 +87,14 @@ function lot_validity($lot) {
     return $errors;
 };
 
+function get_layout($content, $title, $is_auth, $user_name, $categories) {
+    return $layout = include_template('layout.php', [
+        'page_content' => $content,
+        'page_title' => $title,
+        'is_auth' => $is_auth,
+        'user_name' => $user_name,
+        'categories' => $categories,
+    ]);
+};
+
 ?>
