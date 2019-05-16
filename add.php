@@ -2,18 +2,25 @@
 
 require_once('helpers.php');
 require_once('functions.php');
+session_start();
 
-$is_auth = rand(0, 1);
-
-$user_name = 'Андрей'; // укажите здесь ваше имя
+$user_name = set_user(); // укажите здесь ваше имя
 
 $link = create_link();
 $categories = get_categories($link);
 
+if (!isset($_SESSION['user'])) {
+    header('HTTP/1.0 403 Forbidden');
+    $content = "<h2 style='text-align: center;'>Вы вошли как незарегистрированный пользователь, <br> пожалуйста, выполните авторизацию</h2>";
+    $title = 'Error';
+    $layout = get_layout($content, $title, $user_name, $categories);
+    print($layout);
+    exit();
+};
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $lot = $_POST;
-
     $errors = lot_validity($lot);
 
     if (isset($_FILES["lot-img"]) && !empty($_FILES["lot-img"]["name"]) && !$errors) {
