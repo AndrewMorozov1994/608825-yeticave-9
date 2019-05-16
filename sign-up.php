@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'form' => $form,
             ]);
             $title = 'Error';
-            $layout = get_layout($content, $title, $is_auth, $user_name, $categories);
+            $layout = get_layout($content, $title, $user_name, $categories);
             print($layout);
         };
     }
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
 
         $title = 'Error';
-        $layout = get_layout($content, $title, $is_auth, $user_name, $categories);
+        $layout = get_layout($content, $title, $user_name, $categories);
         print($layout);
     };
 
@@ -79,7 +79,7 @@ else {
     ]);
 
     $title = 'Регистрация';
-    $layout = get_layout($content, $title, $is_auth, $user_name, $categories);
+    $layout = get_layout($content, $title, $user_name, $categories);
     print($layout);
 };
 

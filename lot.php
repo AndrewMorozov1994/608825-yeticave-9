@@ -2,10 +2,9 @@
 
 require_once('helpers.php');
 require_once('functions.php');
+session_start();
 
-$is_auth = rand(0, 1);
-
-$user_name = 'Андрей'; // укажите здесь ваше имя
+$user_name = set_user(); // укажите здесь ваше имя
 
 function getLotById($id) {
     $link = create_link();
@@ -55,7 +54,7 @@ if ($lot) {
     ]);
 };
 
-$layout = get_layout($content, $title, $is_auth, $user_name, $categories);
+$layout = get_layout($content, $title, $user_name, $categories);
 print($layout);
 
 ?>

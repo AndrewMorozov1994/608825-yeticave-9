@@ -2,11 +2,9 @@
 
 require_once('helpers.php');
 require_once('functions.php');
+session_start();
 
-$is_auth = rand(0, 1);
-
-$user_name = 'Андрей'; // укажите здесь ваше имя
-
+$user_name = set_user(); // укажите здесь ваше имя
 $link = create_link();
 
 if ($link == false) {
@@ -33,7 +31,6 @@ $content = include_template('index.php', [
 
 $layout_content = include_template('layout.php', [
     'page_title' => 'Главная',
-    'is_auth' => $is_auth,
     'user_name' => $user_name,
     'page_content' => $content,
     'categories' => $categories,
