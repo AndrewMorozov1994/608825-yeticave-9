@@ -30,7 +30,7 @@ function getLotById($link, $id) {
 if (isset($_GET['lot_id'])) {
     $id = (int) $_GET['lot_id'];
 
-    $sql = "SELECT b.price, b.date_creation, u.name FROM bet b
+    $sql = "SELECT b.price, b.date_creation, u.name, u.id FROM bet b
             JOIN users u ON b.user = u.id
             WHERE b.lot = $id
             ORDER BY b.price DESC";
@@ -63,7 +63,8 @@ if ($lot) {
 };
 
 if (!empty($_POST)) {
-    $errors = step_validity($lot);
+    $user_id = $_SESSION['user']['id'];
+    $errors = step_validity($lot, $user_id, $active_bets);
 
     if(!empty($errors)) {
         $content = include_template('lot.php', [
@@ -75,7 +76,7 @@ if (!empty($_POST)) {
         $title = 'Ввод ставки';
     }
     else {
-        $user_id = $_SESSION['user']['id'];
+
         $sql = "INSERT INTO bet (price, user, lot)
                 VALUES (?, ?, ?)";
 

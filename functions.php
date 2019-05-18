@@ -87,8 +87,9 @@ function lot_validity($lot) {
     return $errors;
 };
 
-function step_validity($lot) {
+function step_validity($lot, $user_id, $active_bets) {
     $errors = [];
+    $last_user_id = !empty($active_bets) ? $active_bets[0]['id'] : '';
 
     if(empty($_POST['cost'])) {
         $errors['cost'] = 'Введите Вашу ставку';
@@ -101,6 +102,10 @@ function step_validity($lot) {
     if ($_POST['cost'] < $lot['start_price'] + $lot['step']) {
         $errors['cost'] = 'Ставка не может быть меньше текущей стоимости';
     };
+
+    if ($last_user_id == $user_id) {
+        $errors['cost'] = 'Ваша ставка последняя';
+    }
 
     return $errors;
 }

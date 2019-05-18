@@ -1,3 +1,7 @@
+<?php
+print_r($bets[0]['id']);
+print_r($_SESSION['user']['id']);
+?>
 <nav class="nav">
     <ul class="nav__list container">
         <? foreach ($categories as $value): ?>
