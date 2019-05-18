@@ -11,7 +11,7 @@
   <h2>Вход</h2>
   <div class="form__item <?=isset($errors["email"]) ? "form__item--invalid" : ""?>"> <!-- form__item--invalid -->
     <label for="email">E-mail <sup>*</sup></label>
-    <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?=isset($form["email"]) ? $form["email"] : ""; ?>">
+    <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?=isset($_POST["email"]) ? $_POST["email"] : ""; ?>">
     <span class="form__error"><?=isset($errors["email"]) ? $errors["email"] : ""?></span>
   </div>
   <div class="form__item form__item--last <?=isset($errors["password"]) ? "form__item--invalid" : ""?>">

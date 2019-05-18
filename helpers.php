@@ -143,4 +143,21 @@ function include_template($name, array $data = []) {
     return $result;
 }
 
+function get_back_time($lot_time) {
+    $diff = strtotime('now') - strtotime($lot_time);
 
+    $hour = floor($diff / 3600);
+    $minute = floor(($diff % 3600) / 60);
+
+    if ($hour > 24) {
+        $back_time = "{$hour } " . date('y.m.d \в H:i', strtotime($value));
+    }
+    elseif ($hour >= 1) {
+        $back_time = "{$hour} " . get_noun_plural_form($hour, 'час', 'часа', 'часов') . " назад";
+    }
+    else {
+        $back_time = "{$minute} " . get_noun_plural_form($minute, 'минута', 'минуты', 'минут') . " назад";
+    };
+
+    return $back_time;
+}

@@ -2,6 +2,8 @@
 
 require_once('helpers.php');
 require_once('functions.php');
+session_start();
+check_session();
 
 $link = create_link();
 $categories = get_categories($link);
