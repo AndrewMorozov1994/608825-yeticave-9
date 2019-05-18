@@ -5,9 +5,9 @@ require_once('functions.php');
 session_start();
 
 $user_name = set_user(); // укажите здесь ваше имя
+$link = create_link();
 
-function getLotById($id) {
-    $link = create_link();
+function getLotById($link, $id) {
 
     if (!$link) {
         print('Ошибка подключения: ' . mysqli_connect_error());
@@ -29,21 +29,29 @@ function getLotById($id) {
 
 if (isset($_GET['lot_id'])) {
     $id = (int) $_GET['lot_id'];
-    $lot = getLotById($id)['lot'];
-    $categories = getLotById($id)['categories'];
+
+    $sql = "SELECT b.price, b.date_creation, u.name FROM bet b
+            JOIN users u ON b.user = u.id
+            WHERE b.lot = $id
+            ORDER BY b.price DESC";
+
+    $active_bets = mysqli_fetch_all(db_fetch_data($link, $sql), MYSQLI_ASSOC);
+
+    $lot = getLotById($link, $id)['lot'];
+    $categories = getLotById($link, $id)['categories'];
 };
 
 if ($lot) {
     $content = include_template('lot.php', [
         'lot' => $lot,
         'categories' => $categories,
+        'bets' => $active_bets,
     ]);
 
     $title = $lot['name'];
 
 } else {
     header('HTTP/1.1 404 Not found');
-    $link = create_link();
     $title = '404 Not found';
     $sql = 'SELECT * FROM lot';
     $lots = mysqli_fetch_all(db_fetch_data($link, $sql), MYSQLI_ASSOC);
@@ -52,6 +60,43 @@ if ($lot) {
         'categories' => $categories,
         'lots' => $lots,
     ]);
+};
+
+if (!empty($_POST)) {
+    $errors = step_validity($lot);
+
+    if(!empty($errors)) {
+        $content = include_template('lot.php', [
+            'errors' => $errors,
+            'categories' => $categories,
+            'lot' => $lot,
+            'bets' => $active_bets,
+        ]);
+        $title = 'Ввод ставки';
+    }
+    else {
+        $user_id = $_SESSION['user']['id'];
+        $sql = "INSERT INTO bet (price, user, lot)
+                VALUES (?, ?, ?)";
+
+        $stmt = db_get_prepare_stmt($link, $sql, [
+            $_POST['cost'],
+            $user_id,
+            $id,
+        ]);
+
+        $res = mysqli_stmt_execute($stmt);
+        if($res) {
+            $new_price = $_POST['cost'];
+            $sql = "UPDATE lot SET start_price = $new_price WHERE id = $id";
+            $result = mysqli_query($link, $sql);
+            if($result) {
+                header("Location: lot.php?lot_id=" . $id);
+                exit();
+            }
+
+        };
+    }
 };
 
 $layout = get_layout($content, $title, $user_name, $categories);

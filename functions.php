@@ -87,6 +87,24 @@ function lot_validity($lot) {
     return $errors;
 };
 
+function step_validity($lot) {
+    $errors = [];
+
+    if(empty($_POST['cost'])) {
+        $errors['cost'] = 'Введите Вашу ставку';
+    }
+
+    if (!is_numeric($_POST['cost'])) {
+        $errors['cost'] = 'Значение должно быть числом';
+    }
+
+    if ($_POST['cost'] < $lot['start_price'] + $lot['step']) {
+        $errors['cost'] = 'Ставка не может быть меньше текущей стоимости';
+    };
+
+    return $errors;
+}
+
 function get_layout($content, $title, $user_name, $categories) {
     return $layout = include_template('layout.php', [
         'page_content' => $content,
@@ -97,7 +115,14 @@ function get_layout($content, $title, $user_name, $categories) {
 };
 
 function set_user() {
-    return $_SESSION ? $_SESSION['user']['name'] : null;
+    return $_SESSION['user']['name'] ?? null;
+};
+
+function check_session() {
+    if(isset($_SESSION['user'])) {
+        header('Location: index.php');
+        exit();
+    };
 };
 
 ?>
