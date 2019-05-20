@@ -130,4 +130,24 @@ function check_session() {
     };
 };
 
+function get_bets_by_lot($id) {
+    $link = create_link();
+    $sql = "SELECT u.name, b.lot, b.user, b.price FROM bet b
+        JOIN users u ON b.user = u.id
+        WHERE b.lot = $id";
+    $result = mysqli_query($link, $sql);
+    return $bets = mysqli_fetch_all($result, MYSQLI_ASSOC) ?? '';
+}
+
+function get_lot_amount_text($id) {
+    $text;
+    $bets = get_bets_by_lot($id);
+    if ($bets) {
+      $text = sizeof($bets) . " " .
+        get_noun_plural_form(sizeof($bets), "ставка", "ставки", "ставок");
+    } else {
+      $text = "Стартовая цена";
+    }
+    return $text;
+  }
 ?>

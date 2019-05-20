@@ -150,7 +150,7 @@ function get_back_time($lot_time) {
     $minute = floor(($diff % 3600) / 60);
 
     if ($hour > 24) {
-        $back_time = "{$hour } " . date('y.m.d \в H:i', strtotime($value));
+        $back_time = date('y.m.d \в H:i', strtotime($lot_time));
     }
     elseif ($hour >= 1) {
         $back_time = "{$hour} " . get_noun_plural_form($hour, 'час', 'часа', 'часов') . " назад";
