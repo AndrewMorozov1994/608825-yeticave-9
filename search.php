@@ -23,18 +23,15 @@ if ($search) {
             LIMIT $page_items
             OFFSET $offset";
 
-    $stmt = db_get_prepare_stmt($link, $sql, [$search]);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $result = db_fetch_data($link, $sql, [$search]);
+
     $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     if ($lots) {
 
         $sql = "SELECT l.* FROM lot l
                 WHERE MATCH (l.name, l.description) AGAINST(?)";
-        $stmt = db_get_prepare_stmt($link, $sql, [$search]);
-        mysqli_stmt_execute($stmt);
-        $res = mysqli_stmt_get_result($stmt);
+        $res = db_fetch_data($link, $sql, [$search]);
 
         $items_count = sizeof(mysqli_fetch_all($res, MYSQLI_ASSOC));
         $pages_count = ceil($items_count / $page_items);

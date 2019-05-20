@@ -2,6 +2,7 @@
 
 require_once('helpers.php');
 require_once('functions.php');
+require 'getwinner.php';
 session_start();
 
 $user_name = set_user(); // укажите здесь ваше имя

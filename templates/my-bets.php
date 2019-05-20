@@ -1,3 +1,6 @@
+<?
+print_r($bets);
+?>
 <nav class="nav">
       <ul class="nav__list container">
       <? foreach ($categories as $value): ?>
@@ -13,7 +16,7 @@
         <? foreach ($bets as $value): ?>
             <? if (strtotime($value['end_date']) > strtotime('now')) : ?>
                 <tr class="rates__item"> <!-- rates__item--win   rates__item--end -->
-            <? elseif ($value['winner'] === $user_id) : ?>
+            <? elseif ($value['winner'] == $user_id) : ?>
                 <tr class="rates__item rates__item--win">
             <? else : ?>
                 <tr class="rates__item rates__item--end">
@@ -24,7 +27,11 @@
                     </div>
                     <div>
                         <h3 class="rates__title"><a href="lot.php?lot_id=<?=$value['lot'];?>"><?=$value['lot_name'];?></a></h3>
-                        <?=$value['winner'] === $user_id ? '<p><?=$value["contacts"];?></p>' : ""; ?>
+
+                        <? if ($value['winner'] == $user_id) : ?>
+                            <p><?=$value['contacts'];?></p>
+                        <? endif; ?>
+
                     </div>
                 </td>
                 <td class="rates__category">
@@ -35,7 +42,7 @@
                     <div class="timer <?=end_sale_time($value['end_date']) <= 60 ? "timer--finishing" : ""; ?>">
                         <?=end_time($value['end_date']); ?>
                     </div> <!-- timer--end   timer--win -->
-                <? elseif ($value['winner'] === $user_id) : ?>
+                <? elseif ($value['winner'] == $user_id) : ?>
                     <div class="timer timer--win">
                         Ставка выиграла
                     </div>
@@ -52,7 +59,7 @@
                     <?=get_back_time($value['date_creation']); ?>
                 </td>
             </tr>
-        <? endforeach; ?>   
+        <? endforeach; ?>
       </table>
     </section>
   </main>

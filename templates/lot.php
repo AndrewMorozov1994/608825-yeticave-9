@@ -1,3 +1,6 @@
+<?
+print_r($lot);
+?>
 <nav class="nav">
     <ul class="nav__list container">
         <? foreach ($categories as $value): ?>
@@ -22,7 +25,7 @@
         <div class="lot-item__right">
             <?php if (isset($_SESSION["user"])) : ?>
                 <div class="lot-item__state">
-                    <div class="lot-item__timer timer<?=end_sale_time($lot['end_date']) <= 60 ? "timer--finishing" : ""; ?>">
+                    <div class="lot-item__timer timer <?=end_sale_time($lot['end_date']) <= 60 ? "timer--finishing" : ""; ?>">
                         <?=end_time($lot['end_date']); ?>
                     </div>
                     <div class="lot-item__cost-state">

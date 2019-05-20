@@ -13,7 +13,7 @@ function getLotById($link, $id) {
         print('Ошибка подключения: ' . mysqli_connect_error());
     }
     else {
-        $sql = 'SELECT c.name, l.id, l.name, l.description, l.lot_category, l.start_price, l.step, l.img_url, l.end_date FROM lot l
+        $sql = 'SELECT c.name, l.id, l.name, l.description, l.lot_category, l.start_price, l.step, l.img_url, l.end_date, l.winner FROM lot l
                 JOIN category c ON l.category = c.id
                 WHERE l.id = '. $id .'';
 
