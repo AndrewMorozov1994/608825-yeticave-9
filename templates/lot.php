@@ -1,6 +1,3 @@
-<?
-print_r($lot);
-?>
 <nav class="nav">
     <ul class="nav__list container">
         <? foreach ($categories as $value): ?>

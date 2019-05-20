@@ -37,6 +37,7 @@ if (isset($_GET['lot_id'])) {
 
     $active_bets = mysqli_fetch_all(db_fetch_data($link, $sql), MYSQLI_ASSOC);
 
+
     $lot = getLotById($link, $id)['lot'];
     $categories = getLotById($link, $id)['categories'];
 };

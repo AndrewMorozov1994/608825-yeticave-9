@@ -24,9 +24,8 @@ $close_lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 if (!empty($close_lots)) {
     foreach ($close_lots as $lot) {
         $id = $lot['id'];
-        $winner_id = $lot['user'];
 
-        $sql_max_bet = "SELECT b.id, b.price, b.user, b.lot, u.name, u.email FROM bet b
+        $sql_max_bet = "SELECT b.id, b.price, b.user, b.lot, u.name, u.id as winner, u.email FROM bet b
                         JOIN users u ON b.user = u.id
                         WHERE b.lot = $id
                         ORDER BY b.price DESC LIMIT 1";
@@ -36,11 +35,13 @@ if (!empty($close_lots)) {
         if(!empty($max_bet)) {
             $email = $max_bet['email'];
             $lot_id = $max_bet['lot'];
+            $winner_id = $max_bet['winner'];
 
             $sql_upd = "UPDATE lot SET winner = $winner_id
                         WHERE lot.id = $lot_id";
 
             $res_upd = mysqli_query($link, $sql_upd);
+            var_dump($res_upd);
 
             if (!$res_upd) {
                 print('Ошибка MYSQL: ' . mysqli_error($link));
