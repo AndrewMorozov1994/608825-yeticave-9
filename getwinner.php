@@ -60,4 +60,5 @@ if (!empty($close_lots)) {
         }
     }
 }
+
 ?>
