@@ -19,7 +19,7 @@ if (!isset($_SESSION['user'])) {
 
 $user_id = $_SESSION['user']['id'];
 
-$sql = "SELECT b.*, l.name AS lot_name, l.img_url, l.end_date, l.lot_category, u.contacts FROM bet b
+$sql = "SELECT b.*, l.name AS lot_name, l.img_url, l.end_date, l.lot_category, l.winner, u.contacts FROM bet b
         JOIN lot l ON b.lot = l.id
         JOIN users u ON u.id = l.author
         WHERE b.user = $user_id
@@ -32,6 +32,7 @@ $content = include_template('my-bets.php', [
     'categories' => $categories,
     'title' => $title,
     'bets' => $bets,
+    'user_id' => $user_id,
 ]);
 $layout = get_layout($content, $title, $user_name, $categories);
 print($layout);
