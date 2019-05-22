@@ -10,6 +10,11 @@ $user_name = set_user();
 $link = create_link();
 $categories = get_categories($link);
 
+$nav = include_template('navigation.php',[
+    'categories' => $categories,
+]);
+
+
 if (!empty($_POST)){
 	$required = ['email', 'password'];
 	$errors = [];
@@ -43,7 +48,7 @@ if (!empty($_POST)){
             'categories' => $categories,
         ]);
         $title = "Вход";
-        $layout = get_layout($content, $title, $user_name, $categories);
+        $layout = get_layout($content, $title, $user_name, $nav);
         print($layout);
     }
     else {
@@ -59,7 +64,7 @@ else {
     ]);
 
     $title = 'Вход';
-    $layout = get_layout($content, $title, $user_name, $categories);
+    $layout = get_layout($content, $title, $user_name, $nav);
     print($layout);
 };
 ?>

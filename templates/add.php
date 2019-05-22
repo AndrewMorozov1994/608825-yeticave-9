@@ -1,21 +1,9 @@
-
-<nav class="nav">
-      <ul class="nav__list container">
-        <? foreach ($categories as $value): ?>
-
-            <li class="nav__item">
-                <a href="all-lots.html"><?=htmlspecialchars($value['name']); ?></a>
-            </li>
-
-        <? endforeach; ?>
-      </ul>
-    </nav>
     <form class="form form--add-lot container <?=!empty($errors) ? "form--invalid" : "" ; ?>" action="add.php" enctype="multipart/form-data" method="post"> <!-- form--invalid -->
       <h2>Добавление лота</h2>
       <div class="form__container-two">
         <div class="form__item <?=!empty($errors["lot-name"]) ? "form__item--invalid" : ""?>"> <!-- form__item--invalid -->
           <label for="lot-name">Наименование <sup>*</sup></label>
-          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?=isset($lot) ? $lot['lot-name'] : ""; ?>">
+          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?=isset($lot) ? htmlspecialchars($lot['lot-name']) : ""; ?>">
           <span class="form__error"><?=$errors["lot-name"]; ?></span>
         </div>
         <div class="form__item">
@@ -30,13 +18,13 @@
       </div>
       <div class="form__item form__item--wide <?=!empty($errors["message"]) ? "form__item--invalid" : ""?>">
         <label for="message">Описание <sup>*</sup></label>
-        <textarea id="message" name="message" placeholder="Напишите описание лота"><?=isset($lot) ? $lot['message'] : "" ;?></textarea>
+        <textarea id="message" name="message" placeholder="Напишите описание лота"><?=isset($lot) ? htmlspecialchars($lot['message']) : "" ;?></textarea>
         <span class="form__error"><?=$errors["message"]; ?></span>
       </div>
       <div class="form__item form__item--file">
         <label>Изображение <sup>*</sup></label>
         <div class="form__input-file <?=!empty($errors["lot-img"]) ? "form__item--invalid" : ""?>">
-          <input class="visually-hidden" name="lot-img" type="file" id="lot-img" value="<?=isset($lot) ? $lot["lot-img"] : ""; ?>">
+          <input class="visually-hidden" name="lot-img" type="file" id="lot-img">
           <label for="lot-img" <?=!empty($errors["lot-img"]) ? "style='border: 1px solid red'" : ""?>>
             Добавить
           </label>

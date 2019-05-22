@@ -13,6 +13,9 @@ $curent_page = $_GET['page'] ?? 1;
 $page_items = 3;
 $offset = ($curent_page - 1) * $page_items;
 
+$nav = include_template('navigation.php',[
+    'categories' => $categories,
+]);
 
 if ($search) {
     $sql = "SELECT l.* FROM lot l
@@ -30,7 +33,10 @@ if ($search) {
     if ($lots) {
 
         $sql = "SELECT l.* FROM lot l
-                WHERE MATCH (l.name, l.description) AGAINST(?)";
+                WHERE MATCH (l.name, l.description) AGAINST(?)
+                AND l.winner is NULL
+                AND NOW() < l.end_date";
+
         $res = db_fetch_data($link, $sql, [$search]);
 
         $items_count = sizeof(mysqli_fetch_all($res, MYSQLI_ASSOC));
@@ -59,7 +65,7 @@ else {
 
 $title = 'Результат поиска';
 
-$layout = get_layout($content, $title, $user_name, $categories);
+$layout = get_layout($content, $title, $user_name, $nav);
 print($layout);
 
 ?>

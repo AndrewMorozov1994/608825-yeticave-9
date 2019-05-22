@@ -8,6 +8,10 @@ check_session();
 $link = create_link();
 $categories = get_categories($link);
 
+$nav = include_template('navigation.php',[
+    'categories' => $categories,
+]);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $form = $_POST;
     $required_fields = ["email", "password", "name", "message"];
@@ -58,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'form' => $form,
             ]);
             $title = 'Error';
-            $layout = get_layout($content, $title, $user_name, $categories);
+            $layout = get_layout($content, $title, $user_name, $nav);
             print($layout);
         };
     }
@@ -70,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
 
         $title = 'Error';
-        $layout = get_layout($content, $title, $user_name, $categories);
+        $layout = get_layout($content, $title, $user_name, $nav);
         print($layout);
     };
 
@@ -81,7 +85,7 @@ else {
     ]);
 
     $title = 'Регистрация';
-    $layout = get_layout($content, $title, $user_name, $categories);
+    $layout = get_layout($content, $title, $user_name, $nav);
     print($layout);
 };
 

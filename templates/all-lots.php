@@ -1,25 +1,9 @@
- <section class="promo">
-        <h2 class="promo__title">Нужен стафф для катки?</h2>
-        <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
-        <ul class="promo__list">
-            <!--заполните этот список из массива категорий-->
-
-            <? foreach ($categories as $value): ?>
-                <li class="promo__item promo__item--<?=$value['symbol_code'] ;?>">
-                    <a class="promo__link" href="all-lots.php?category=<?=$value['id'];?>"><?=$value['name']; ?></a>
-                </li>
-            <? endforeach; ?>
-
-        </ul>
-    </section>
-    <section class="lots">
-        <div class="lots__header">
-            <h2>Открытые лоты</h2>
-        </div>
+    <div class="container">
+      <section class="lots">
+        <h2>Все лоты в категории <span>«<?=$categories[$id - 1]['name']; ?>»</span></h2>
+        <? if(empty($errors)) : ?>
         <ul class="lots__list">
-            <!--заполните этот список из массива с товарами-->
-
-            <? foreach ($lots as $value): ?>
+        <? foreach ($lots as $value): ?>
                 <li class="lots__item lot">
                     <div class="lot__image">
                         <img src=<?=htmlspecialchars($value['img_url']); ?> width="350" height="260" alt="">
@@ -39,25 +23,28 @@
                     </div>
                 </li>
             <? endforeach; ?>
-
         </ul>
-        <?php if ($pages_count > 1): ?>
+        <? else : ?>
+            <p><?=$errors; ?></p>
+        <? endif;?>
+      </section>
+      <?php if ($pages_count > 1): ?>
             <ul class="pagination-list">
                 <li class="pagination-item pagination-item-prev">
                     <?php if ($curent_page > 1) : ?>
-                        <a href="index.php?page=<?=$curent_page - 1; ?>">Назад</a>
+                        <a href="all-lots.php?category=<?=$id;?>&page=<?=$curent_page - 1; ?>">Назад</a>
                     <?php endif; ?>
                 </li>
                 <?php foreach ($pages as $page) : ?>
                     <li class="pagination-item <?=(int)$page === (int)$curent_page ? "pagination-item-active" : "";?>">
-                        <a href="index.php?page=<?=$page; ?>"><?=$page; ?></a>
+                        <a href="all-lots.php?category=<?=$id;?>&page=<?=$page; ?>"><?=$page; ?></a>
                     </li>
                 <?php endforeach; ?>
                 <li class="pagination-item pagination-item-next">
                     <?php if ($curent_page < $pages_count) : ?>
-                        <a href="index.php?page=<?=$curent_page + 1; ?>">Вперед</a>
+                        <a href="all-lots.php?category=<?=$id;?>&page=<?=$curent_page + 1; ?>">Вперед</a>
                     <?php endif; ?>
                 </li>
             </ul>
         <?php endif; ?>
-    </section>
+    </div>

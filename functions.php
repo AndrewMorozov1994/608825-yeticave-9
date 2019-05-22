@@ -110,12 +110,12 @@ function step_validity($lot, $user_id, $active_bets) {
     return $errors;
 }
 
-function get_layout($content, $title, $user_name, $categories) {
+function get_layout($content, $title, $user_name, $nav) {
     return $layout = include_template('layout.php', [
         'page_content' => $content,
         'page_title' => $title,
         'user_name' => $user_name,
-        'categories' => $categories,
+        'nav' => $nav,
     ]);
 };
 

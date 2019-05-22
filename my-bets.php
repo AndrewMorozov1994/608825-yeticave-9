@@ -8,11 +8,15 @@ $user_name = set_user(); // укажите здесь ваше имя
 $link = create_link();
 $categories = get_categories($link);
 
+$nav = include_template('navigation.php',[
+    'categories' => $categories,
+]);
+
 if (!isset($_SESSION['user'])) {
     header('HTTP/1.0 403 Forbidden');
     $content = "<h2 style='text-align: center;'>Вы вошли как незарегистрированный пользователь, <br> пожалуйста, выполните авторизацию</h2>";
     $title = 'Error';
-    $layout = get_layout($content, $title, $user_name, $categories);
+    $layout = get_layout($content, $title, $user_name, $nav);
     print($layout);
     exit();
 };
@@ -34,7 +38,7 @@ $content = include_template('my-bets.php', [
     'bets' => $bets,
     'user_id' => $user_id,
 ]);
-$layout = get_layout($content, $title, $user_name, $categories);
+$layout = get_layout($content, $title, $user_name, $nav);
 print($layout);
 
 ?>

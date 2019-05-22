@@ -49,26 +49,14 @@
 </header>
 
 <main class="<?=$main_class ? $main_class : ""; ?>">
-
+    <?=$main_class ? "" : $nav; ?>
     <?=$page_content; ?>
-
 </main>
 
 </div>
 
 <footer class="main-footer">
-    <nav class="nav">
-        <ul class="nav__list container">
-            <!--заполните этот список из массива категорий-->
-
-            <? foreach ($categories as $value): ?>
-                <li class="nav__item">
-                    <a href="pages/all-lots.html"><?=$value['name']; ?></a>
-                </li>
-            <? endforeach; ?>
-
-        </ul>
-    </nav>
+    <?=$nav; ?>
     <div class="main-footer__bottom container">
         <div class="main-footer__copyright">
             <p>© 2019, YetiCave</p>

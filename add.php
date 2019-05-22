@@ -9,11 +9,15 @@ $user_name = set_user(); // укажите здесь ваше имя
 $link = create_link();
 $categories = get_categories($link);
 
+$nav = include_template('navigation.php',[
+    'categories' => $categories,
+]);
+
 if (!isset($_SESSION['user'])) {
     header('HTTP/1.0 403 Forbidden');
     $content = "<h2 style='text-align: center;'>Вы вошли как незарегистрированный пользователь, <br> пожалуйста, выполните авторизацию</h2>";
     $title = 'Error';
-    $layout = get_layout($content, $title, $user_name, $categories);
+    $layout = get_layout($content, $title, $user_name, $nav);
     print($layout);
     exit();
 };
@@ -50,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             'page_content' => $content,
             'is_auth' => $is_auth,
             'user_name' => $user_name,
-            'categories' => $categories,
+            'nav' => $nav,
             'flatpickr' => '../css/flatpickr.min.css',
         ]);
 
@@ -93,9 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $layout = include_template('layout.php', [
         'page_content' => $content,
         'page_title' => $title,
-        'is_auth' => $is_auth,
         'user_name' => $user_name,
-        'categories' => $categories,
+        'nav' => $nav,
         'flatpickr' => '../css/flatpickr.min.css',
     ]);
 

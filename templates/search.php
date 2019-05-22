@@ -1,14 +1,3 @@
-<nav class="nav">
-      <ul class="nav__list container">
-        <? foreach ($categories as $value): ?>
-
-            <li class="nav__item">
-                <a href="all-lots.html"><?=htmlspecialchars($value['name']); ?></a>
-            </li>
-
-        <? endforeach; ?>
-      </ul>
-    </nav>
     <div class="container">
       <section class="lots">
         <h2>Результаты поиска по запросу «<span><?=htmlspecialchars($search); ?></span>»</h2>

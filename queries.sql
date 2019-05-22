@@ -8,12 +8,12 @@ VALUES ('username1', 'userpassword1', 'user1@mail.ru', 'No contact', 'userimage1
        ('username3', 'userpassword3', 'user3@gmail.com', 'No contact', 'userimage3.png');
 
 INSERT INTO lot (name, lot_category, category, img_url, start_price, step, end_date, author, description)
-VALUES ('2014 Rossignol District Snowboard', 'Доски и лыжи', 1, 'img/lot-1.jpg', '10999', '100', '2019-05-20 23:50', 1, 'Test'),
-       ('DC Ply Mens 2016/2017 Snowboard', 'Доски и лыжи', 1, 'img/lot-2.jpg', '159999', '100', '2019-05-20 23:50', 2, 'Test'),
+VALUES ('2014 Rossignol District Snowboard', 'Доски и лыжи', 1, 'img/lot-1.jpg', '10999', '100', '2019-05-30 23:50', 1, 'Test'),
+       ('DC Ply Mens 2016/2017 Snowboard', 'Доски и лыжи', 1, 'img/lot-2.jpg', '159999', '100', '2019-05-30 23:50', 2, 'Test'),
        ('Крепления Union Contact Pro 2015 года размер L/XL', 'Крепления', 2, 'img/lot-3.jpg', '8000', '100', '2019-05-30', 3, 'Test'),
        ('Ботинки для сноуборда DC Mutiny Charocal', 'Ботинки', 3, 'img/lot-4.jpg', '10999', '100', '2019-06-30', 2, 'Test'),
        ('Куртка для сноуборда DC Mutiny Charocal', 'Одежда', 4, 'img/lot-5.jpg', '7500', '100', '2019-05-30', 1, 'Test'),
-       ('Маска Oakley Canopy', 'Разное', 5, 'img/lot-6.jpg', '350', '100', '2019-05-30', 3, 'Test');
+       ('Маска Oakley Canopy', 'Разное', 6, 'img/lot-6.jpg', '350', '100', '2019-05-30', 3, 'Test');
 
 INSERT INTO bet (price, user, lot)
 VALUES (160099, 1, 2), (8100, 1, 3);

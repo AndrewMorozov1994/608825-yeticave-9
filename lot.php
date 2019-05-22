@@ -42,6 +42,10 @@ if (isset($_GET['lot_id'])) {
     $categories = getLotById($link, $id)['categories'];
 };
 
+$nav = include_template('navigation.php',[
+    'categories' => $categories,
+]);
+
 if ($lot) {
     $content = include_template('lot.php', [
         'lot' => $lot,
@@ -53,7 +57,7 @@ if ($lot) {
 
 } else {
     header('HTTP/1.1 404 Not found');
-    $title = '404 Not found';
+    $title = '404 Страница не найдена';
     $sql = 'SELECT * FROM lot';
     $lots = mysqli_fetch_all(db_fetch_data($link, $sql), MYSQLI_ASSOC);
 
@@ -101,7 +105,7 @@ if (!empty($_POST)) {
     }
 };
 
-$layout = get_layout($content, $title, $user_name, $categories);
+$layout = get_layout($content, $title, $user_name, $nav);
 print($layout);
 
 ?>

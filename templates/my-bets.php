@@ -1,12 +1,3 @@
-<nav class="nav">
-      <ul class="nav__list container">
-      <? foreach ($categories as $value): ?>
-            <li class="nav__item">
-                <a href="all-lots.html"><?=htmlspecialchars($value['name']); ?></a>
-            </li>
-        <? endforeach; ?>
-      </ul>
-    </nav>
     <section class="rates container">
       <h2>Мои ставки</h2>
       <table class="rates__list">
@@ -20,19 +11,19 @@
             <? endif; ?>
                 <td class="rates__info">
                     <div class="rates__img">
-                        <img src="<?=$value['img_url'];?>" width="54" height="40" alt="Сноуборд">
+                        <img src="<?=htmlspecialchars($value['img_url']);?>" width="54" height="40" alt="Сноуборд">
                     </div>
                     <div>
-                        <h3 class="rates__title"><a href="lot.php?lot_id=<?=$value['lot'];?>"><?=$value['lot_name'];?></a></h3>
+                        <h3 class="rates__title"><a href="lot.php?lot_id=<?=htmlspecialchars($value['lot']);?>"><?=htmlspecialchars($value['lot_name']);?></a></h3>
 
                         <? if ($value['winner'] == $user_id) : ?>
-                            <p><?=$value['contacts'];?></p>
+                            <p><?=htmlspecialchars($value['contacts']);?></p>
                         <? endif; ?>
 
                     </div>
                 </td>
                 <td class="rates__category">
-                    <?=$value['lot_category'];?>
+                    <?=htmlspecialchars($value['lot_category']);?>
                 </td>
                 <td class="rates__timer">
                 <? if (strtotime($value['end_date']) > strtotime('now')) : ?>
