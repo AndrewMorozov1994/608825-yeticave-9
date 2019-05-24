@@ -33,7 +33,7 @@ if (!empty($_POST)){
 
     if (!sizeof($errors) && $user) {
 		if (password_verify($_POST['password'], $user['password'])) {
-			$_SESSION['user'] = $user;
+            $_SESSION['user'] = $user;
 		}
 		else {
 			$errors['password'] = 'Неверный пароль';

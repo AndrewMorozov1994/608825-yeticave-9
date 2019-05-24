@@ -13,10 +13,10 @@ $page_items = 1;
 $offset = ($curent_page - 1) * $page_items;
 
 if(isset($_GET['category'])) {
-    $category_id = (int)$_GET['category'];
+    $category_id = mysqli_real_escape_string($link, (int)$_GET['category']);
 
     $sql = "SELECT l.* FROM lot l
-            WHERE l.category = $category_id
+            WHERE l.category = '$category_id'
             AND l.end_date > NOW()
             LIMIT $page_items
             OFFSET $offset";
@@ -32,7 +32,7 @@ if(isset($_GET['category'])) {
 if ($all_lots) {
 
     $sql = "SELECT l.* FROM lot l
-            WHERE l.category = $category_id
+            WHERE l.category = '$category_id'
             AND l.end_date > NOW()";
 
     $res = db_fetch_data($link, $sql);

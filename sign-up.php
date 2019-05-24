@@ -7,13 +7,14 @@ check_session();
 
 $link = create_link();
 $categories = get_categories($link);
+$user_name = set_user();
 
 $nav = include_template('navigation.php',[
     'categories' => $categories,
     'id' => '',
 ]);
 
-if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $form = $_POST;
     $required_fields = ['email', 'password', 'name', 'message'];
     $errors = [];

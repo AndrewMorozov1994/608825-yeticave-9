@@ -38,8 +38,8 @@ if (!empty($close_lots)) {
             $lot_id = $max_bet['lot'];
             $winner_id = $max_bet['winner'];
 
-            $sql_upd = "UPDATE lot SET winner = $winner_id
-                        WHERE lot.id = $lot_id";
+            $sql_upd = "UPDATE lot SET winner = '$winner_id'
+                        WHERE lot.id = '$lot_id'";
 
             $res_upd = mysqli_query($link, $sql_upd);
 

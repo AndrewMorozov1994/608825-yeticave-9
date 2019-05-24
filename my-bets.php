@@ -22,12 +22,12 @@ if (!isset($_SESSION['user'])) {
     exit();
 };
 
-$user_id = $_SESSION['user']['id'];
+$user_id = mysqli_real_escape_string($link, $_SESSION['user']['id']);
 
 $sql = "SELECT b.*, l.name AS lot_name, l.img_url, l.end_date, l.lot_category, l.winner, u.contacts FROM bet b
         JOIN lot l ON b.lot = l.id
         JOIN users u ON u.id = l.author
-        WHERE b.user = $user_id
+        WHERE b.user = '$user_id'
         ORDER BY l.end_date ASC";
 
 $bets = mysqli_fetch_all(db_fetch_data($link, $sql), MYSQLI_ASSOC);

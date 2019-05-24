@@ -8,7 +8,7 @@ $user_name = set_user(); // укажите здесь ваше имя
 $link = create_link();
 $categories = get_categories($link);
 
-$search = $_GET['search'] ?? '';
+$search = $_GET['search'] ? mysqli_real_escape_string($link, $_GET['search']) : '';
 $curent_page = $_GET['page'] ?? 1;
 $page_items = 3;
 $offset = ($curent_page - 1) * $page_items;

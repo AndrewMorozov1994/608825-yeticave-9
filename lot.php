@@ -28,11 +28,11 @@ function getLotById($link, $id) {
 }
 
 if (isset($_GET['lot_id'])) {
-    $id = (int) $_GET['lot_id'];
+    $id = mysqli_real_escape_string($link, (int)$_GET['lot_id']);
 
     $sql = "SELECT b.price, b.date_creation, u.name, u.id FROM bet b
             JOIN users u ON b.user = u.id
-            WHERE b.lot = $id
+            WHERE b.lot = '$id'
             ORDER BY b.price DESC";
 
     $active_bets = mysqli_fetch_all(db_fetch_data($link, $sql), MYSQLI_ASSOC);
@@ -95,8 +95,8 @@ if (!empty($_POST)) {
 
         $res = mysqli_stmt_execute($stmt);
         if($res) {
-            $new_price = $_POST['cost'];
-            $sql = "UPDATE lot SET start_price = $new_price WHERE id = $id";
+            $new_price = mysqli_real_escape_string($link, $_POST['cost']);
+            $sql = "UPDATE lot SET start_price = '$new_price' WHERE id = '$id'";
             $result = mysqli_query($link, $sql);
             if($result) {
                 header("Location: lot.php?lot_id=" . $id);
