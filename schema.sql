@@ -26,7 +26,7 @@ CREATE TABLE lot (
   lot_category  VARCHAR(64),
 	img_url       VARCHAR(255) NOT NULL,
 	start_price   INT NOT NULL,
-	end_date      TIMESTAMP NOT NULL,
+	end_date      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	step          INT NOT NULL,
 	author        INT,
 	winner        INT,
