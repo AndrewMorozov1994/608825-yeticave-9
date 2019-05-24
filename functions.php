@@ -29,7 +29,18 @@ function end_sale_time($end_date) {
 function create_link() {
     $link = mysqli_connect("localhost", "root", "", "yeticave");
     mysqli_set_charset($link, "utf8");
-    return $link;
+
+    if ($link == false) {
+        $content = include_template('404.php', [
+            'error' => 'В настоящий момент страница недоступна',
+        ]);
+        $layout = include_template('layout.php', ['page_content' => $content,]);
+        print($layout);
+        die();
+    }
+    else {
+        return $link;
+    }
 };
 
 function db_fetch_data($link, $sql, $data = []) {
@@ -103,7 +114,7 @@ function step_validity($lot, $user_id, $active_bets) {
         $errors['cost'] = 'Ставка не может быть меньше текущей стоимости';
     };
 
-    if ($last_user_id == $user_id) {
+    if ((int)$last_user_id === (int)$user_id) {
         $errors['cost'] = 'Ваша ставка последняя';
     }
 

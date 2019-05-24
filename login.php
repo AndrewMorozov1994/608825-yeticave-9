@@ -12,6 +12,7 @@ $categories = get_categories($link);
 
 $nav = include_template('navigation.php',[
     'categories' => $categories,
+    'id' => '',
 ]);
 
 

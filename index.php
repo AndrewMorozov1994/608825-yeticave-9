@@ -12,13 +12,11 @@ $curent_page = $_GET['page'] ?? 1;
 $page_items = 6;
 $offset = ($curent_page - 1) * $page_items;
 
-if ($link == false) {
-    print("Ошибка подключения: " . mysqli_connect_error());
-} else {
-    // Link up;
+
     $categories = get_categories($link);
     $nav = include_template('navigation.php',[
         'categories' => $categories,
+        'id' => '',
     ]);
 
     $sql = "SELECT l.name, l.id, l.start_price, l.lot_category, l.end_date,  l.img_url, c.name AS category_name
@@ -40,7 +38,7 @@ if ($link == false) {
         $pages_count = ceil($items_count / $page_items);
         $pages = range(1, $pages_count);
     }
-};
+
 
 $main_class = "container";
 

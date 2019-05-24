@@ -10,11 +10,12 @@ $categories = get_categories($link);
 
 $nav = include_template('navigation.php',[
     'categories' => $categories,
+    'id' => '',
 ]);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $form = $_POST;
-    $required_fields = ["email", "password", "name", "message"];
+    $required_fields = ['email', 'password', 'name', 'message'];
     $errors = [];
 
     foreach ($required_fields as $field) {
@@ -23,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         };
     };
 
-    if (!filter_var($form["email"], FILTER_VALIDATE_EMAIL)) {
-        $errors["email"] = "Указан некорректный адрес";
+    if (!filter_var($form['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = 'Указан некорректный адрес';
     };
 
     if(empty($errors)) {
@@ -33,18 +34,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $res = mysqli_query($link, $sql);
 
         if(mysqli_num_rows($res) > 0) {
-            $errors["email"] = 'Пользователь с указанным адресом уже существует';
+            $errors['email'] = 'Пользователь с указанным адресом уже существует';
         }
         else {
-            $password = password_hash($form["password"], PASSWORD_DEFAULT);
+            $password = password_hash($form['password'], PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO users (name, password, email, contacts, avatar)
-                    VALUES (?, ?, ?, ?, ?)";
+            $sql = 'INSERT INTO users (name, password, email, contacts, avatar)
+                    VALUES (?, ?, ?, ?, ?)';
             $stmt = db_get_prepare_stmt($link, $sql, [
-                $form["name"],
+                $form['name'],
                 $password,
-                $form["email"],
-                $form["message"],
+                $form['email'],
+                $form['message'],
                 NULL,
             ]);
 
@@ -52,11 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         };
 
         if ($res && empty($errors)) {
-            header("Location: login.php");
+            header('Location: login.php');
             exit();
         }
         else {
-            $content = include_template("sign-up.php", [
+            $content = include_template('sign-up.php', [
                 'categories' => $categories,
                 'errors' => $errors,
                 'form' => $form,
@@ -67,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         };
     }
     else {
-        $content = include_template("sign-up.php", [
+        $content = include_template('sign-up.php', [
             'categories' => $categories,
             'errors' => $errors,
             'form' => $form,
@@ -80,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 else {
-    $content = include_template("sign-up.php", [
+    $content = include_template('sign-up.php', [
         'categories' => $categories,
     ]);
 

@@ -11,6 +11,7 @@ $categories = get_categories($link);
 
 $nav = include_template('navigation.php',[
     'categories' => $categories,
+    'id' => '',
 ]);
 
 if (!isset($_SESSION['user'])) {
@@ -22,25 +23,25 @@ if (!isset($_SESSION['user'])) {
     exit();
 };
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $lot = $_POST;
     $errors = lot_validity($lot);
 
-    if (isset($_FILES["lot-img"]) && !empty($_FILES["lot-img"]["name"]) && !$errors) {
+    if (isset($_FILES['lot-img']) && !empty($_FILES['lot-img']['name']) && !$errors) {
 
-        $tmp_name = $_FILES["lot-img"]["tmp_name"];
-        $path = $_FILES["lot-img"]["name"];
+        $tmp_name = $_FILES['lot-img']['tmp_name'];
+        $path = $_FILES['lot-img']['name'];
         $file_type = mime_content_type($tmp_name);
 
-        if ($file_type !== "image/png" && $file_type !== "image/jpeg"){
-            $errors["lot-img"] = "Изображение должно быть в формате png или jpeg";
+        if ($file_type !== 'image/png' && $file_type !== 'image/jpeg'){
+            $errors['lot-img'] = 'Изображение должно быть в формате png или jpeg';
         } else {
             move_uploaded_file($tmp_name, 'uploads/' . $path);
-            $lot["lot-img"] = "uploads/" . $path;
+            $lot['lot-img'] = 'uploads/' . $path;
         }
     }  else {
-           $errors["lot-img"] = 'Вы не загрузили файл';
+           $errors['lot-img'] = 'Вы не загрузили файл';
     };
 
     if (sizeof($errors)) {
@@ -61,29 +62,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         print($layout);
 
     } else {
-        $category = get_category_name_by_id($link, $lot["category"]);
-        $user = 1;
+        $category = get_category_name_by_id($link, $lot['category']);
+        $user = $_SESSION['user']['id'];
 
         $sql = 'INSERT INTO lot (category, author, name, lot_category, img_url, start_price, step, end_date, description)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         $stmt = db_get_prepare_stmt($link, $sql, [
-            $lot["category"],
+            $lot['category'],
             $user,
-            $lot["lot-name"],
+            $lot['lot-name'],
             $category,
-            $lot["lot-img"],
-            $lot["lot-rate"],
-            $lot["lot-step"],
-            $lot["lot-date"],
-            $lot["message"],
+            $lot['lot-img'],
+            $lot['lot-rate'],
+            $lot['lot-step'],
+            $lot['lot-date'],
+            $lot['message'],
         ]);
 
         $res = mysqli_stmt_execute($stmt);
 
         if ($res) {
             $lot_id = mysqli_insert_id($link);
-            header("Location: lot.php?lot_id=" . $lot_id);
+            header('Location: lot.php?lot_id=' . $lot_id);
         };
     };
 
@@ -92,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         'categories' => $categories,
     ]);
 
-    $title = "Добавление нового лота";
+    $title = 'Добавление нового лота';
 
     $layout = include_template('layout.php', [
         'page_content' => $content,

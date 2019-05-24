@@ -9,7 +9,7 @@
             <p class="lot-item__description"><?=htmlspecialchars($lot['description']); ?></p>
         </div>
         <div class="lot-item__right">
-            <?php if (isset($_SESSION["user"])) : ?>
+            <?php if (isset($_SESSION["user"]) && (int)$_SESSION['user']['id'] !== (int)$lot['author']) : ?>
                 <div class="lot-item__state">
                     <div class="lot-item__timer timer <?=end_sale_time($lot['end_date']) <= 60 ? "timer--finishing" : ""; ?>">
                         <?=end_time($lot['end_date']); ?>
@@ -38,8 +38,8 @@
                 <table class="history__list">
                 <? foreach ($bets as $value): ?>
                     <tr class="history__item">
-                        <td class="history__name"><?=$value['name']; ?></td>
-                        <td class="history__price"><?=$value['price']; ?> р</td>
+                        <td class="history__name"><?=htmlspecialchars($value['name']); ?></td>
+                        <td class="history__price"><?=htmlspecialchars($value['price']); ?> р</td>
                         <td class="history__time"><?=get_back_time($value['date_creation']); ?></td>
                     </tr>
                 <? endforeach; ?>

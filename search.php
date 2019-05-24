@@ -15,6 +15,7 @@ $offset = ($curent_page - 1) * $page_items;
 
 $nav = include_template('navigation.php',[
     'categories' => $categories,
+    'id' => '',
 ]);
 
 if ($search) {
