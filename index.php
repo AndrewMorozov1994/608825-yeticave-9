@@ -19,7 +19,7 @@ $offset = ($curent_page - 1) * $page_items;
         'id' => '',
     ]);
 
-    $sql = "SELECT l.name, l.id, l.start_price, l.lot_category, l.end_date,  l.img_url, c.name AS category_name
+    $sql = "SELECT l.name, l.id, l.start_price, l.lot_category, l.end_date, l.last_bet, l.img_url, c.name AS category_name
             FROM lot AS l
             INNER JOIN category AS c ON l.category = c.id
             WHERE l.end_date > NOW()
@@ -48,6 +48,7 @@ $content = include_template('index.php', [
     'pages' => $pages,
     'pages_count' => $pages_count,
     'curent_page' => $curent_page,
+    'link' => $link,
 ]);
 
 $layout_content = include_template('layout.php', [

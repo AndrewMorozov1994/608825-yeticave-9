@@ -5,7 +5,7 @@
     <title><?=$page_title; ?></title>
     <link href="../css/normalize.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
-    <link href="<?=$flatpickr; ?>" rel="stylesheet">
+    <?=isset($flatpickr) ? "<link href='$flatpickr' rel='stylesheet'>" : "";?>
 </head>
 <body>
 <div class="page-wrapper">
@@ -47,8 +47,8 @@
     </div>
 </header>
 
-<main class="<?=$main_class ? $main_class : ""; ?>">
-    <?=$main_class ? "" : $nav; ?>
+<main <?=isset($main_class) ? "class=$main_class" : ''; ?>>
+    <?=isset($main_class) ? "" : $nav; ?>
     <?=$page_content; ?>
 </main>
 

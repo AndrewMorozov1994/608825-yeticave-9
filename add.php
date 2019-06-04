@@ -32,13 +32,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $tmp_name = $_FILES['lot-img']['tmp_name'];
         $path = $_FILES['lot-img']['name'];
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
         $file_type = mime_content_type($tmp_name);
 
         if ($file_type !== 'image/png' && $file_type !== 'image/jpeg'){
             $errors['lot-img'] = 'Изображение должно быть в формате png или jpeg';
         } else {
-            move_uploaded_file($tmp_name, 'uploads/' . $path);
-            $lot['lot-img'] = 'uploads/' . $path;
+
+            if ($ext === "png"){
+            	$filename = uniqid() . '.png';
+            }
+
+        	if ($ext === "jpeg"){
+            	$filename = uniqid() . '.jpeg';
+            }
+
+            $lot['lot-img'] = 'uploads/' . $filename;
+            move_uploaded_file($tmp_name, 'uploads/' . $filename);
         }
     }  else {
            $errors['lot-img'] = 'Вы не загрузили файл';
@@ -53,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $layout = include_template('layout.php', [
             'page_content' => $content,
-            'is_auth' => $is_auth,
+            'page_title' => 'error',
             'user_name' => $user_name,
             'nav' => $nav,
             'flatpickr' => '../css/flatpickr.min.css',

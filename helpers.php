@@ -143,6 +143,16 @@ function include_template($name, array $data = []) {
     return $result;
 }
 
+/**
+ * Возвращает корректную форму времени, прошедшего с момента создания ставки
+ *
+ * Формат вывода: "N часов назад"
+ *                "N минуты назад"
+ *                "19.04.2019 в 12:00"
+ *
+ * @param string $lot_time дата создания ставки
+ * @return string рассчитанное время
+ */
 function get_back_time($lot_time) {
     $diff = strtotime('now') - strtotime($lot_time);
 

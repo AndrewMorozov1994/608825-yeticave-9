@@ -20,7 +20,7 @@ if (!empty($_POST)){
 	$required = ['email', 'password'];
 	$errors = [];
 	foreach ($required as $field) {
-	    if (empty($_POST[$field])) {
+	    if (isset($_POST[$field]) && empty($_POST[$field])) {
 	        $errors[$field] = 'Это поле надо заполнить';
         }
     };
@@ -31,14 +31,16 @@ if (!empty($_POST)){
     $res = mysqli_query($link, $sql);
     $user = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
 
-    if (!sizeof($errors) && $user) {
-		if (password_verify($_POST['password'], $user['password'])) {
-            $_SESSION['user'] = $user;
-		}
-		else {
-			$errors['password'] = 'Неверный пароль';
-		}
-	}
+    if ($user) {
+        if (!sizeof($errors)) {
+            if (password_verify($_POST['password'], $user['password'])) {
+                $_SESSION['user'] = $user;
+            }
+            else {
+                $errors['password'] = 'Неверный пароль';
+            }
+        }
+    }
 	else {
 		$errors['email'] = 'Такой пользователь не найден';
     };

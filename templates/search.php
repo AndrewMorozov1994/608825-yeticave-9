@@ -17,7 +17,7 @@
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount"><?=get_lot_amount_text($value['id']); ?></span>
-                            <span class="lot__cost"><?=htmlspecialchars($value['start_price']); ?></span>
+                            <span class="lot__cost"><?=isset($value['last_bet']) ? $value['last_bet'] : htmlspecialchars($value['start_price']); ?></span>
                         </div>
                         <div class="lot__timer timer<?=end_sale_time($lot['end_date']) <= 60 ? "timer--finishing" : ""; ?>">
                             <?=end_time($value['end_date']); ?>

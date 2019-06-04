@@ -1,31 +1,10 @@
 <?php
-
 require_once('helpers.php');
 require_once('functions.php');
 session_start();
 
 $user_name = set_user(); // укажите здесь ваше имя
 $link = create_link();
-
-function getLotById($link, $id) {
-
-    if (!$link) {
-        print('Ошибка подключения: ' . mysqli_connect_error());
-    }
-    else {
-        $sql = 'SELECT c.name, l.id, l.author, l.name, l.description, l.lot_category, l.start_price, l.step, l.img_url, l.end_date, l.winner FROM lot l
-                JOIN category c ON l.category = c.id
-                WHERE l.id = '. $id .'';
-
-        $lotLink = mysqli_fetch_assoc(db_fetch_data($link, $sql));
-
-        $categories = get_categories($link);
-
-        return ['categories' => $categories,
-                'lot' => $lotLink,
-        ];
-    }
-}
 
 if (isset($_GET['lot_id'])) {
     $id = mysqli_real_escape_string($link, (int)$_GET['lot_id']);
@@ -96,7 +75,10 @@ if (!empty($_POST)) {
         $res = mysqli_stmt_execute($stmt);
         if($res) {
             $new_price = mysqli_real_escape_string($link, $_POST['cost']);
-            $sql = "UPDATE lot SET start_price = '$new_price' WHERE id = '$id'";
+            // $sql = "UPDATE lot SET start_price = '$new_price' WHERE id = '$id'";
+            // $result = mysqli_query($link, $sql);
+
+            $sql = "UPDATE lot SET last_bet = '$new_price' WHERE id = '$id'";
             $result = mysqli_query($link, $sql);
             if($result) {
                 header("Location: lot.php?lot_id=" . $id);

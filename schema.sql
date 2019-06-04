@@ -11,8 +11,8 @@ CREATE TABLE category (
 CREATE TABLE users (
 	id       INT AUTO_INCREMENT PRIMARY KEY,
 	date_reg TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	email    VARCHAR(64) UNIQUE NOT NULL,
-	name     VARCHAR(64) UNIQUE NOT NULL,
+	email    VARCHAR(128) UNIQUE NOT NULL,
+	name     VARCHAR(128) NOT NULL,
 	password VARCHAR(64) NOT NULL,
 	avatar   VARCHAR(255),
 	contacts TEXT NOT NULL
@@ -28,6 +28,7 @@ CREATE TABLE lot (
 	start_price   INT NOT NULL,
 	end_date      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	step          INT NOT NULL,
+  last_bet      INT,
 	author        INT,
 	winner        INT,
 	category      INT,

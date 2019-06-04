@@ -48,17 +48,17 @@ if ($all_lots) {
         'pages_count' => $pages_count,
         'curent_page' => $curent_page,
     ]);
-
-    $title = $all_lots[0]['lot_category'];
 }
 else {
 
     $content = include_template('all-lots.php', [
         'categories' => $categories,
         'id' => $category_id,
+        'pages_count' => 1,
         'errors' => 'В данной категории лоты отсутствуют',
     ]);
 }
+$title = $categories[$category_id - 1]['name'];
 
 $layout = get_layout($content, $title, $user_name, $nav);
 print($layout);
